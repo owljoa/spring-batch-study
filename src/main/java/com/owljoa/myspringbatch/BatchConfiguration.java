@@ -1,6 +1,7 @@
 package com.owljoa.myspringbatch;
 
 import javax.sql.DataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -13,22 +14,18 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 @EnableBatchProcessing
+@RequiredArgsConstructor
 public class BatchConfiguration {
 
-  @Autowired
-  public JobBuilderFactory jobBuilderFactory;
-
-  @Autowired
-  public StepBuilderFactory stepBuilderFactory;
-
-
+  public final JobBuilderFactory jobBuilderFactory;
+  public final StepBuilderFactory stepBuilderFactory;
+  
   @Bean
   public FlatFileItemReader<Person> reader() {
     return new FlatFileItemReaderBuilder<Person>()
